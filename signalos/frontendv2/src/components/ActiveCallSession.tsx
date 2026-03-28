@@ -70,10 +70,12 @@ export default function ActiveCallSession() {
   const name = call ? MOCK_NAMES[call.callId] ?? DEFAULT_NAME : DEFAULT_NAME;
   const isAlert = call?.status === "ALERT";
 
-  // Red bar on every call screen when this line or any other line is in emergency alert
+  // Who the backend alert is about (may differ from the call you have open)
   const alertingCallId =
     activeAlert?.callId ?? (call?.status === "ALERT" ? call.callId : null);
-  const showAlertBar = Boolean(call && alertingCallId !== null);
+  const hasBackendAlert = activeAlert != null || call?.status === "ALERT";
+  // Show red bar on any call screen only when there is a real alert (any category, incl. non-emergency)
+  const showAlertBar = Boolean(call && hasBackendAlert);
 
   const barCall = alertingCallId ? calls[alertingCallId] : undefined;
   const barName = alertingCallId
@@ -136,7 +138,7 @@ export default function ActiveCallSession() {
         >
           {showAlertBar && (
             <div
-              className={`min-w-0 flex-1 ${cardRadius} border px-4 py-3.5 md:px-5 md:py-4 flex items-start gap-3 md:gap-4`}
+              className={`min-w-0 flex-1 ${cardRadius} flex items-start gap-3 border px-4 py-3.5 md:gap-4 md:px-5 md:py-4`}
               style={{
                 borderColor: "rgba(139, 0, 0, 0.55)",
                 backgroundColor: "rgba(60, 10, 10, 0.35)",
@@ -154,19 +156,15 @@ export default function ActiveCallSession() {
                   ALERT
                 </span>
                 <p className="min-w-0 flex-1 border-l border-white/20 pl-4 text-[15px] font-normal leading-relaxed text-white md:pl-6 md:text-base">
-                  <span className="font-medium text-white">
-                    {barName}
-                  </span>
+                  <span className="font-medium text-white">{barName}</span>
                   <span className="text-white/90">
                     {" "}
                     needs attention. (Category: {barCategoryLabel})
                   </span>
-                  {alertingCallId !== selectedCallId && (
-                    <span className="text-white/55">
-                      {" · "}
-                      You are speaking to {name}.
-                    </span>
-                  )}
+                  <span className="text-white/55">
+                    {" · "}
+                    You are speaking to {name}.
+                  </span>
                 </p>
               </div>
             </div>
