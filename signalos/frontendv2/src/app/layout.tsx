@@ -15,7 +15,7 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "SignalOS",
+  title: "Echo",
   description: "911 Dispatch Dashboard",
 };
 
