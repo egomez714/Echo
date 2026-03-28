@@ -16,13 +16,12 @@ function getClient(): SupabaseClient | null {
 }
 
 const CALLER_NAMES: Record<string, string> = {
-  sim_call_1: "Monica Schmidt",
-  sim_call_2: "James Anderson",
-  sim_call_3: "Sofia Patel",
-  sim_call_4: "Carlos Rodriguez",
-  sim_call_5: "Emma Johnson",
+  sim_call_1: "Erick Gomez",
+  sim_call_2: "Lucas Kim",
+  sim_call_3: "Suhwoo Lee",
+  sim_call_4: "Jordan Mitchell",
 };
-const DEFAULT_NAME = "Liam Thompson";
+const DEFAULT_NAME = "Aiden Taylor";
 
 const CALLER_PHONES: Record<string, string> = {
   sim_call_1: "(310) 555-0101",
